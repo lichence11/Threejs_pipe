@@ -39,7 +39,7 @@ require([
     var container_height = domStyle.get(container,"height");
 
     /**
-     * 初始化3D
+     * 初始化3D test
      */
      function init3D(){
         initScene();
