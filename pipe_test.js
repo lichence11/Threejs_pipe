@@ -2,7 +2,7 @@
  * Created by Esri on 2015/10/23.
  */
 
-var map,mapservice,featurelayer,mapview;
+//var map,mapservice,featurelayer,mapview;
 /**
  * Esri Dojo
  */
@@ -45,14 +45,14 @@ require([
         initScene();
         initCamera();
         //camera.position.set(0,1000,0);
-        camera.position.set(12733467.4879, 3586173.4560000002, 0);
+        camera.position.set(12733467.4879, 3586173.4560000002, 1000);
         camera.up.x = 0;
         camera.up.y = 0;
         camera.up.z = 1;
         camera.lookAt({
             x : 12733467.4879,
             y : 3586173.4560000002,
-            z : 100
+            z : -10
         });
         scene.add(camera);
         initLight();
@@ -72,7 +72,7 @@ require([
     function initRenderer(){
         renderer=new THREE.WebGLRenderer({antialias: true});//¿¹¾â³Ý
         renderer.setSize(container_width,container_height);
-        renderer.setClearColor(0xFFFF00);
+        renderer.setClearColor(0x00DDDD);
     }
     function initScene(){
         scene=new THREE.Scene();
@@ -102,8 +102,9 @@ require([
             var vector=vectors[i];
             for(var j=0;j<vector.length;j++){
                vector[j].push(0);
+               geometry.vertices.push(vector[j]);
             }
-            geometry.vertices.push(vector);
+
         }
         geometry.colors.push(color,color2);
         pipeline=new THREE.Line(geometry,material,THREE.LinePieces);
@@ -125,11 +126,13 @@ require([
         $.ajax({
             type:"GET",
             url: "https://fangxun.arcgisonline.cn/arcgis/rest/services/Wuhan_pipe/MapServer/1/query?f=json&where=1%3D1&returnGeometry=true&spatialRel=esriSpatialRelIntersects&outFields=objectid&outSR=102100&resultOffset=0&resultRecordCount=1000",
+            //url:"test.json",
             success:function(result){
                 var data=eval ("(" + result + ")");
                 pipeFeatures=data.features;
                 //return pipeFeatures;
                 creatLine3D(pipeFeatures);
+                renderer.render(scene,camera);
             },
             error:function(XMLHttpRequest, textStatus, errorThrown){
                 alert(errorThrown);
@@ -142,7 +145,7 @@ require([
     //creatLine();
     //var pipe=getPipeJson();
     //CreatLine3D(pipe);
-    scene.add(line);
-    renderer.render(scene,camera);
+    //scene.add(line);
+    //renderer.render(scene,camera);
 });//esri dojo-end
 
