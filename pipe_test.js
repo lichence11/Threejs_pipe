@@ -101,7 +101,7 @@ require([
         for(var i=0;i<vectors.length;i++){
             var vector=vectors[i];
             for(var j=0;j<vector.length;j++){
-               vector[j].push(0);
+               vector[j].push(100);
                geometry.vertices.push(vector[j]);
             }
 
@@ -147,5 +147,15 @@ require([
     //CreatLine3D(pipe);
     //scene.add(line);
     //renderer.render(scene,camera);
+    var sx= 0,sy=0;
+    window.onmousedown=function(ev){
+        sx=ev.offsetX;
+        sy=ev.offsetY;
+        var i=0;
+        i++;
+    };
+
+
+
 });//esri dojo-end
 
