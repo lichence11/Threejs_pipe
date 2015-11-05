@@ -45,15 +45,18 @@ require([
         initScene();
         initCamera();
         //camera.position.set(0,1000,0);
-        camera.position.set(12733467.4879, 3586173.4560000002, 1000);
+        //camera.position.set(550,170, 100);
+        camera.position.x = 550;
+        camera.position.y = 170;
+        camera.position.z = 100;
         camera.up.x = 0;
         camera.up.y = 0;
         camera.up.z = 1;
-        camera.lookAt({
-            x : 12733467.4879,
-            y : 3586173.4560000002,
+  /*      camera.lookAt({
+            x : 0,
+            y : 0,
             z : -10
-        });
+        });*/
         scene.add(camera);
         initLight();
         light.position.set(100, 100, 200);
@@ -72,7 +75,7 @@ require([
     function initRenderer(){
         renderer=new THREE.WebGLRenderer({antialias: true});//¿¹¾â³Ý
         renderer.setSize(container_width,container_height);
-        renderer.setClearColor(0x00DDDD);
+        renderer.setClearColor(0xFFFFFF);
     }
     function initScene(){
         scene=new THREE.Scene();
@@ -98,14 +101,21 @@ require([
         var material=new THREE.LineBasicMaterial({ vertexColors: true });
         var color = new THREE.Color( 0xFF0000 );
         var color2 = new THREE.Color( 0xFF0000 );
-        for(var i=0;i<vectors.length;i++){
+/*        for(var i=0;i<vectors.length;i++){
             var vector=vectors[i];
             for(var j=0;j<vector.length;j++){
-               vector[j].push(100);
-               geometry.vertices.push(vector[j]);
+               vector[j].push(0);
+                vector[j][0]=vector[j][0]/10000;
+                vector[j][1]=vector[j][1]/10000;
+                var point=new THREE.Vector3(vector[j][0],vector[j][1],vector[j][2]);
+               geometry.vertices.push(point);
             }
 
-        }
+        }*/
+        var point1= new THREE.Vector3(1273,358,0);
+        var point2= new THREE.Vector3(1270,355,0);
+        geometry.vertices.push(point1);
+        geometry.vertices.push(point2);
         geometry.colors.push(color,color2);
         pipeline=new THREE.Line(geometry,material,THREE.LinePieces);
         scene.add(pipeline);
