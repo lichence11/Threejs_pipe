@@ -16,7 +16,7 @@ require([
     "dojo/dom",
     "dojo/domReady!"
 ],function(Map,FeatureLayer,MapView,domStyle,request,on,dom){
-   /* featurelayer=new FeatureLayer({
+/*    featurelayer=new FeatureLayer({
         id:"pipe",
         url:"https://fangxun.arcgisonline.cn/arcgis/rest/services/Wuhan_pipe/MapServer/1",
         returnZ:true
@@ -30,8 +30,7 @@ require([
         container:'container',
         center: [114.23, 30.58],
         zoom:10
-    });
-*/
+    });*/
     var renderer,scene,camera,line,light;
     var animating=false;
     var container=dom.byId("threeD_container");
@@ -48,15 +47,10 @@ require([
         //camera.position.set(550,170, 100);
         camera.position.x = 1273;
         camera.position.y = 358;
-        camera.position.z = 20;
+        camera.position.z = 100;
         camera.up.x = 1;
         camera.up.y = 0;
         camera.up.z = 0;
-  /*      camera.lookAt({
-            x : 0,
-            y : 0,
-            z : -10
-        });*/
         scene.add(camera);
         initLight();
         light.position.set(100, 100, 200);
@@ -80,59 +74,33 @@ require([
     function initScene(){
         scene=new THREE.Scene();
     }
-/*    function creatLine(){
-        var geometry=new THREE.Geometry();
-        var material=new THREE.LineBasicMaterial({ vertexColors: true });
-        var color = new THREE.Color( 0xFF0000 );
-        var color2 = new THREE.Color( 0xFF0000 );
-        var point1=new THREE.Vector3(-100,0);
-        var point2=new THREE.Vector3(100,0);
-        geometry.vertices.push(point1);
-        geometry.vertices.push(point2);
-        geometry.colors.push(color,color2);
-        line=new THREE.Line(geometry,material,THREE.LinePieces);
-        scene.add(line);
-    }*/
-
 
     function creatLine(vectors){
         var pipeline;
         var geometry=new THREE.Geometry();
         var material=new THREE.LineBasicMaterial({ vertexColors: true });
         var color = new THREE.Color( 0xFF0000 );
-       // var color2 = new THREE.Color( 0xFF0000 );
         for(var i=0;i<vectors.length;i++){
             var vector=vectors[i];
             for(var j=0;j<vector.length;j++){
-               vector[j].push(0);
-               vector[j][0]=vector[j][0]/1000;
-               vector[j][1]=vector[j][1]/1000;
-               var point=new THREE.Vector3(vector[j][0],vector[j][1],vector[j][2]);
-               geometry.vertices.push(point);
-               geometry.colors.push(color);
+                var point=new THREE.Vector3(vector[j][0]/1000,vector[j][1]/1000,0);
+                geometry.vertices.push(point);
+                geometry.colors.push(color);
             }
         }
         camera.position.x = 12730;
-        camera.position.y = 3580;
-        camera.position.z = 10;
-/*        var p1= new THREE.Vector3(12730,3580,0);
-        var p2= new THREE.Vector3(12700,3550,0);
-       // var p3= new THREE.Vector3(1250,310,0);
-        geometry.vertices.push(p1);
-        geometry.vertices.push(p2);
-        //geometry.vertices.push(p3);
-        geometry.colors.push(color,color);*/
-        pipeline=new THREE.Line(geometry,material,THREE.LinePieces);
+        camera.position.y = 3577;
+        camera.position.z = 40;
+
+
+        pipeline=new THREE.Line(geometry,material);
         scene.add(pipeline);
     }
     function creatLine3D(features){
         if (features!==null){
-            //for (var pipe in features){
-            //    var pipeLine=features[pipe].geometry.path;
-            //}
             for(var i=0;i<features.length;i++){
-                var pipeLine=features[i].geometry.paths;
-                creatLine(pipeLine);
+                var points=features[i].geometry.paths;
+                creatLine(points);
             }
         }
     }
