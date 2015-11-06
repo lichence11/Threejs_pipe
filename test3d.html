@@ -30,21 +30,27 @@
         var camera;
         function initCamera() {
             camera = new THREE.PerspectiveCamera(45, width / height, 1, 10000);
-  /*          camera.position.x = 0;
-            camera.position.y = 1000;
-            camera.position.z = 0;*/
+            camera.position.x = 1900;
+            camera.position.y = 520;
+            camera.position.z = 100;
 
-            camera.position.x = 550;
-            camera.position.y = 170;
-            camera.position.z = 700;
-            camera.up.x = 0;
-            camera.up.y = 0;
-            camera.up.z = 1;
-            camera.lookAt({
+//            camera.position.x = 550;
+//            camera.position.y = 170;
+//            camera.position.z = 700;
+/*            camera.up.x = 0;
+            camera.up.y = 1;
+            camera.up.z = 0;*/
+/*            camera.lookAt({
                 x : 0,
                 y : 0,
                 z : 0
-            });
+            });*/
+
+//            camera.lookAt({
+//                x : 1500,
+//                y : 0,
+//                z : 0
+//            });
         }
 
         var scene;
@@ -70,11 +76,13 @@
 //            var p1 = new THREE.Vector3( -100, 0, 100 );
 //            var p2 = new THREE.Vector3(  100, 0, -100 );
 //            var p3 = new THREE.Vector3(  100, 0, -110 );
-
-
-            //测试点
-            var p1 = new THREE.Vector3(1273,358,0);
-            var p2 = new THREE.Vector3(1270,355,0);
+//          测试点1
+            var p1= new THREE.Vector3(1273,350,0);
+            var p2= new THREE.Vector3(1270,350,0);
+            var p3= new THREE.Vector3(1200,100,0);
+            //测试点2
+//            var p1 = new THREE.Vector3(1273,358,0);
+//            var p2 = new THREE.Vector3(1270,355,0);
 //            var v=[p1,p2,p3];
             geometry.vertices.push(p1);
             geometry.vertices.push(p2);

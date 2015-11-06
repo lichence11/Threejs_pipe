@@ -46,12 +46,12 @@ require([
         initCamera();
         //camera.position.set(0,1000,0);
         //camera.position.set(550,170, 100);
-        camera.position.x = 550;
-        camera.position.y = 170;
+        camera.position.x = 0;
+        camera.position.y = 0;
         camera.position.z = 100;
-        camera.up.x = 0;
+        camera.up.x = 1;
         camera.up.y = 0;
-        camera.up.z = 1;
+        camera.up.z = 0;
   /*      camera.lookAt({
             x : 0,
             y : 0,
@@ -112,10 +112,15 @@ require([
             }
 
         }*/
-        var point1= new THREE.Vector3(1273,358,0);
-        var point2= new THREE.Vector3(1270,355,0);
-        geometry.vertices.push(point1);
-        geometry.vertices.push(point2);
+        camera.position.x = 1273;
+        camera.position.y = 358;
+        camera.position.z = 20;
+        var p1= new THREE.Vector3(1273,358,0);
+        var p2= new THREE.Vector3(1270,355,0);
+        //var p3= new THREE.Vector3(1266,355,0);
+        geometry.vertices.push(p1);
+        geometry.vertices.push(p2);
+        //geometry.vertices.push(p3);
         geometry.colors.push(color,color2);
         pipeline=new THREE.Line(geometry,material,THREE.LinePieces);
         scene.add(pipeline);
