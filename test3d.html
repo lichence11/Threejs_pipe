@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>ThreeF¶</title>
-    <script src="Three.js"></script>
+    <script src="three.js"></script>
     <style type="text/css">
         div#canvas-frame {
             border: none;
@@ -30,9 +30,9 @@
         var camera;
         function initCamera() {
             camera = new THREE.PerspectiveCamera(45, width / height, 1, 10000);
-            camera.position.x = 1900;
-            camera.position.y = 520;
-            camera.position.z = 100;
+            camera.position.x = 1910;
+            camera.position.y = 525;
+            camera.position.z = 20;
 
 //            camera.position.x = 550;
 //            camera.position.y = 170;
@@ -86,9 +86,9 @@
 //            var v=[p1,p2,p3];
             geometry.vertices.push(p1);
             geometry.vertices.push(p2);
- //           geometry.vertices.push(p3);
+            geometry.vertices.push(p3);
 //            geometry.vertices=v;
-            geometry.colors.push( color1, color2 );
+            geometry.colors.push( color1, color2,color2 );
 
 //            var line = new THREE.Line( geometry, material, THREE.LinePieces );
             var line = new THREE.Line( geometry, material );
