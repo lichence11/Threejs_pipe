@@ -15,6 +15,7 @@
 
     </style>
     <script src="jquery-1.11.3.js"></script>
+    <script src="controls/OrbitControls.js"></script>
     <script>
         var renderer;
         function initThree() {
@@ -144,6 +145,15 @@
             initScene();
             initLight();
             initObject();
+            renderer.clear();
+            renderer.render(scene, camera);
+
+            var cameraControls = new THREE.OrbitControls( camera, renderer.domElement );
+            cameraControls.target.set( 12730, 3570, 0 );
+            cameraControls.addEventListener( 'change', render );
+
+        }
+        function render(){
             renderer.clear();
             renderer.render(scene, camera);
         }

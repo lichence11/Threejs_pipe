@@ -16,7 +16,7 @@ require([
     "dojo/dom",
     "dojo/domReady!"
 ],function(Map,FeatureLayer,MapView,domStyle,request,on,dom){
-/*    featurelayer=new FeatureLayer({
+    featurelayer=new FeatureLayer({
         id:"pipe",
         url:"https://fangxun.arcgisonline.cn/arcgis/rest/services/Wuhan_pipe/MapServer/1",
         returnZ:true
@@ -30,7 +30,7 @@ require([
         container:'container',
         center: [114.23, 30.58],
         zoom:10
-    });*/
+    });
     var renderer,scene,camera,line,light;
     var animating=false;
     var container=dom.byId("threeD_container");
@@ -45,12 +45,9 @@ require([
         initCamera();
         //camera.position.set(0,1000,0);
         //camera.position.set(550,170, 100);
-        camera.position.x = 1273;
-        camera.position.y = 358;
-        camera.position.z = 100;
-        camera.up.x = 1;
-        camera.up.y = 0;
-        camera.up.z = 0;
+        camera.position.x = 12730;
+        camera.position.y = 3577;
+        camera.position.z = 40;
         scene.add(camera);
         initLight();
         light.position.set(100, 100, 200);
@@ -88,9 +85,7 @@ require([
                 geometry.colors.push(color);
             }
         }
-        camera.position.x = 12730;
-        camera.position.y = 3577;
-        camera.position.z = 40;
+
 
 
         pipeline=new THREE.Line(geometry,material);
@@ -130,13 +125,15 @@ require([
     //CreatLine3D(pipe);
     //scene.add(line);
     //renderer.render(scene,camera);
-    var sx= 0,sy=0;
-    window.onmousedown=function(ev){
-        sx=ev.offsetX;
-        sy=ev.offsetY;
-        var i=0;
-        i++;
-    };
+
+    var cameraControls = new THREE.OrbitControls( camera, renderer.domElement );
+    cameraControls.target.set( 12730, 3577, 0 );
+    cameraControls.addEventListener( 'change', render );
+
+    function render(){
+       // renderer.clear();
+        renderer.render(scene, camera);
+    }
 
 
 
