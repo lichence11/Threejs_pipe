@@ -34648,7 +34648,7 @@ THREE.WireframeGeometry.prototype.constructor = THREE.WireframeGeometry;
  * @author sroucheray / http://sroucheray.org/
  * @author mrdoob / http://mrdoob.com/
  */
-
+//蓝色为z轴;红色为x轴;绿色为y轴
 THREE.AxisHelper = function ( size ) {
 
 	size = size || 1;

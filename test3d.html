@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>ThreeF¶</title>
+    <title>test3D</title>
     <script src="three.js"></script>
     <style type="text/css">
         div#canvas-frame {
@@ -15,148 +15,158 @@
 
     </style>
     <script src="jquery-1.11.3.js"></script>
-    <script src="controls/OrbitControls.js"></script>
+    <!--<script src="controls/OrbitControls.js"></script>-->
+    <script src="testControl.js"></script>
     <script>
-        var renderer;
-        function initThree() {
-            width = document.getElementById('canvas-frame').clientWidth;
-            height = document.getElementById('canvas-frame').clientHeight;
-            renderer = new THREE.WebGLRenderer({
-                antialias : true
-            });
-            renderer.setSize(width, height);
-            document.getElementById('canvas-frame').appendChild(renderer.domElement);
-            renderer.setClearColor(0xFFFFFF, 1.0);
-        }
-
-        var camera;
-        function initCamera() {
-            camera = new THREE.PerspectiveCamera(45, width / height, 1, 10000);
-            camera.position.x = 12730;
-            camera.position.y = 3570;
-            camera.position.z = 30;
-
-//            camera.position.x = 550;
-//            camera.position.y = 170;
-//            camera.position.z = 700;
-/*            camera.up.x = 0;
-            camera.up.y = 1;
-            camera.up.z = 0;*/
-/*            camera.lookAt({
-                x : 0,
-                y : 0,
-                z : 0
-            });*/
-
-//            camera.lookAt({
-//                x : 1500,
+//        var renderer;
+//        function initThree() {
+//            width = document.getElementById('canvas-frame').clientWidth;
+//            height = document.getElementById('canvas-frame').clientHeight;
+//            renderer = new THREE.WebGLRenderer({
+//                antialias : true
+//            });
+//            renderer.setSize(width, height);
+//            document.getElementById('canvas-frame').appendChild(renderer.domElement);
+//            renderer.setClearColor(0xFFFFFF, 1.0);
+//        }
+//
+//        var camera;
+//        function initCamera() {
+//            camera = new THREE.PerspectiveCamera(45, width / height, 1, 10000);
+//            camera.position.x = 12730;
+//            camera.position.y = 3570;
+//            camera.position.z = 30;
+//
+////            camera.position.x = 550;
+////            camera.position.y = 170;
+////            camera.position.z = 700;
+///*            camera.up.x = 0;
+//            camera.up.y = 1;
+//            camera.up.z = 0;*/
+///*            camera.lookAt({
+//                x : 0,
 //                y : 0,
 //                z : 0
+//            });*/
+//
+////            camera.lookAt({
+////                x : 1500,
+////                y : 0,
+////                z : 0
+////            });
+//        }
+//
+//        var scene;
+//        function initScene() {
+//            scene = new THREE.Scene();
+//        }
+//
+//        var light;
+//        function initLight() {
+//            light = new THREE.DirectionalLight(0xFFFFFF, 1.0, 0);
+//            light.position.set(100, 100, 200);
+//            scene.add(light);
+//        }
+//
+//        var cube;
+//        function initObject() {
+//
+//            var geometry = new THREE.Geometry();
+//            var material = new THREE.LineBasicMaterial( { vertexColors: true } );
+//            var color1 = new THREE.Color( 0x444444 ), color2 = new THREE.Color( 0xFF0000 );
+//
+//            // ¿P(ïå12¹r³
+////            var p1 = new THREE.Vector3( -100, 0, 100 );
+////            var p2 = new THREE.Vector3(  100, 0, -100 );
+////            var p3 = new THREE.Vector3(  100, 0, -110 );
+//
+//
+///*//          测试点1
+//            var p1= new THREE.Vector3(12730,3580,0);
+//            var p2= new THREE.Vector3(12700,3580,0);
+//            var p3= new THREE.Vector3(12000,1000,0);
+//            //测试点2
+////            var p1 = new THREE.Vector3(1273,358,0);
+////            var p2 = new THREE.Vector3(1270,355,0);
+////            var v=[p1,p2,p3];
+//            geometry.vertices.push(p1);
+//            geometry.vertices.push(p2);
+//            geometry.vertices.push(p3);
+////            geometry.vertices=v;
+//            geometry.colors.push( color1, color2,color2 );*/
+//
+//            //测试点3
+//            var pipeFeatures;
+//            $.ajax({
+//                type:"GET",
+//                url: "https://fangxun.arcgisonline.cn/arcgis/rest/services/Wuhan_pipe/MapServer/1/query?f=json&where=1%3D1&returnGeometry=true&spatialRel=esriSpatialRelIntersects&outFields=objectid&outSR=102100&resultOffset=0&resultRecordCount=1000",
+//                //url:"test.json",
+//                async:false,
+//                success:function(result){
+//                    var data=eval ("(" + result + ")");
+//                    pipeFeatures=data.features;
+//                    //return pipeFeatures;
+//                },
+//                error:function(XMLHttpRequest, textStatus, errorThrown){
+//                    alert(errorThrown);
+//                }
 //            });
-        }
+//            var pps=[];
+//            for(var j=0;j<pipeFeatures.length;j++){
+//                var points=pipeFeatures[j].geometry.paths;
+//                pps.push(points[0]);
+//            }
+//               // var geometry = new THREE.Geometry();
+//            var geometrys=[];
+//            for(var j=0;j<pps.length;j++){
+//                var points=pps[j];
+//                var geometry = new THREE.Geometry();
+//                for(var i=0;i<points.length;i++){
+//                    var point=points[i];
+//                    var p=new THREE.Vector3(point[0]/1000,point[1]/1000,0);
+//                    geometry.vertices.push(p);
+//                    geometry.colors.push(color2);
+//                }
+//                var line = new THREE.Line( geometry, material );
+//                scene.add(line);
+//            }
+//
+//
+//
+//
+////            var line = new THREE.Line( geometry, material, THREE.LinePieces );
+////            var line = new THREE.Line( geometry, material );
+////            line.scale.x=line.scale.y=line.scale.z=1.5;
+////            scene.add(line);
+//        }
+//
+//        function threeStart() {
+//            initThree();
+//            initCamera();
+//            initScene();
+//            initLight();
+//            initObject();
+//            renderer.clear();
+//            renderer.render(scene, camera);
+//
+//            var cameraControls = new THREE.OrbitControls( camera, renderer.domElement );
+//            cameraControls.target.set( 12730, 3570, 0 );
+//            cameraControls.addEventListener( 'change', render );
+//
+//        }
+//        function render(){
+//            renderer.clear();
+//            renderer.render(scene, camera);
+//        }
 
-        var scene;
-        function initScene() {
-            scene = new THREE.Scene();
-        }
-
-        var light;
-        function initLight() {
-            light = new THREE.DirectionalLight(0xFFFFFF, 1.0, 0);
-            light.position.set(100, 100, 200);
-            scene.add(light);
-        }
-
-        var cube;
-        function initObject() {
-
-            var geometry = new THREE.Geometry();
-            var material = new THREE.LineBasicMaterial( { vertexColors: true } );
-            var color1 = new THREE.Color( 0x444444 ), color2 = new THREE.Color( 0xFF0000 );
-
-            // ¿P(ïå12¹r³
-//            var p1 = new THREE.Vector3( -100, 0, 100 );
-//            var p2 = new THREE.Vector3(  100, 0, -100 );
-//            var p3 = new THREE.Vector3(  100, 0, -110 );
-
-
-/*//          测试点1
-            var p1= new THREE.Vector3(12730,3580,0);
-            var p2= new THREE.Vector3(12700,3580,0);
-            var p3= new THREE.Vector3(12000,1000,0);
-            //测试点2
-//            var p1 = new THREE.Vector3(1273,358,0);
-//            var p2 = new THREE.Vector3(1270,355,0);
-//            var v=[p1,p2,p3];
-            geometry.vertices.push(p1);
-            geometry.vertices.push(p2);
-            geometry.vertices.push(p3);
-//            geometry.vertices=v;
-            geometry.colors.push( color1, color2,color2 );*/
-
-            //测试点3
-            var pipeFeatures;
-            $.ajax({
-                type:"GET",
-                url: "https://fangxun.arcgisonline.cn/arcgis/rest/services/Wuhan_pipe/MapServer/1/query?f=json&where=1%3D1&returnGeometry=true&spatialRel=esriSpatialRelIntersects&outFields=objectid&outSR=102100&resultOffset=0&resultRecordCount=1000",
-                //url:"test.json",
-                async:false,
-                success:function(result){
-                    var data=eval ("(" + result + ")");
-                    pipeFeatures=data.features;
-                    //return pipeFeatures;
-                },
-                error:function(XMLHttpRequest, textStatus, errorThrown){
-                    alert(errorThrown);
-                }
-            });
-            var pps=[];
-            for(var j=0;j<pipeFeatures.length;j++){
-                var points=pipeFeatures[j].geometry.paths;
-                pps.push(points[0]);
-            }
-               // var geometry = new THREE.Geometry();
-            var geometrys=[];
-            for(var j=0;j<pps.length;j++){
-                var points=pps[j];
-                var geometry = new THREE.Geometry();
-                for(var i=0;i<points.length;i++){
-                    var point=points[i];
-                    var p=new THREE.Vector3(point[0]/1000,point[1]/1000,0);
-                    geometry.vertices.push(p);
-                    geometry.colors.push(color2);
-                }
-                var line = new THREE.Line( geometry, material );
-                scene.add(line);
-            }
-
-
-
-
-//            var line = new THREE.Line( geometry, material, THREE.LinePieces );
-//            var line = new THREE.Line( geometry, material );
-//            line.scale.x=line.scale.y=line.scale.z=1.5;
-//            scene.add(line);
-        }
-
-        function threeStart() {
-            initThree();
-            initCamera();
-            initScene();
-            initLight();
-            initObject();
-            renderer.clear();
-            renderer.render(scene, camera);
-
-            var cameraControls = new THREE.OrbitControls( camera, renderer.domElement );
-            cameraControls.target.set( 12730, 3570, 0 );
-            cameraControls.addEventListener( 'change', render );
-
-        }
-        function render(){
-            renderer.clear();
-            renderer.render(scene, camera);
-        }
+function threeStart(){
+    var c=new Controls("11");
+    c.publicPan();
+    var d= c.test;
+    var a= c.testPoproty();
+    var i=0;
+    i++;
+}
 
     </script>
 </head>

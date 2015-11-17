@@ -1,5 +1,5 @@
 /**
- * Created by Esri on 2015/10/23.
+ * Created by liwb on 2015/10/23.
  */
 
 //var map,mapservice,featurelayer,mapview;
@@ -31,29 +31,29 @@ require([
         center: [114.23, 30.58],
         zoom:10
     });
-    var renderer,scene,camera,line,light;
-    var animating=false;
+    var renderer,scene,camera,light;
     var container=dom.byId("threeD_container");
     var container_width = domStyle.get(container,"width");
     var container_height = domStyle.get(container,"height");
-
+    var leftTop={},leftButtom={},rightTop={},rightButtom={},center={};//定义一个面的四个顶点和中心点
     /**
      * 初始化3D test
      */
      function init3D(){
         initScene();
         initCamera();
-        //camera.position.set(0,1000,0);
-        //camera.position.set(550,170, 100);
         camera.position.x = 12730;
-        camera.position.y = 3577;
-        camera.position.z = 40;
+        camera.position.y = 10;
+        camera.position.z = 3577;
         scene.add(camera);
-        initLight();
+/*        initLight();
         light.position.set(100, 100, 200);
-        scene.add(light);
+        scene.add(light);*/
         initRenderer();
         container.appendChild(renderer.domElement);
+        var object = new THREE.AxisHelper( 10 );
+        object.position.set( 12627.6596503,  0,-3579.7126349500004 );
+        scene.add( object );
 
     }
 
@@ -80,14 +80,26 @@ require([
         for(var i=0;i<vectors.length;i++){
             var vector=vectors[i];
             for(var j=0;j<vector.length;j++){
-                var point=new THREE.Vector3(vector[j][0]/1000,vector[j][1]/1000,0);
+                var point=new THREE.Vector3(vector[j][0]/1000,0,-1*vector[j][1]/1000);
+                /*if(j===0){
+                    leftTop.x= vector[j][0]/1000;leftTop.y=vector[j][1]/1000;
+                    leftButtom.x= vector[j][0]/1000;leftButtom.y=vector[j][1]/1000;
+                    rightTop.x= vector[j][0]/1000;rightTop.y=vector[j][1]/1000;
+                    rightButtom.x= vector[j][0]/1000;rightButtom.y=vector[j][1]/1000;
+                }else{
+                    if(leftTop.x>vector[j][0]/1000){leftTop.x=vector[j][0]/1000;}
+                    if(leftTop.y<vector[j][0]/1000){leftTop.y=vector[j][1]/1000;}
+                    if(leftButtom.x>vector[j][0]/1000){leftButtom.x=vector[j][0]/1000;}
+                    if(leftButtom.y>vector[j][1]/1000){leftButtom.y=vector[j][1]/1000;}
+                    if(rightTop.x<vector[j][0]/1000){rightTop.x=vector[j][0]/1000;}
+                    if(rightTop.y<vector[j][1]/1000){rightTop.y=vector[j][1]/1000;}
+                    if(rightButtom.x<vector[j][0]/1000){rightButtom.x=vector[j][0]/1000;}
+                    if(rightButtom.y>vector[j][1]/1000){rightButtom.y=vector[j][1]/1000;}
+                }*/
                 geometry.vertices.push(point);
                 geometry.colors.push(color);
             }
         }
-
-
-
         pipeline=new THREE.Line(geometry,material);
         scene.add(pipeline);
     }
@@ -98,6 +110,9 @@ require([
                 creatLine(points);
             }
         }
+/*        center.x=(rightTop.x+leftTop.x)/2;
+        center.y=(rightTop.y+rightButtom.y)/2*/
+        
     }
     function getPipeJson(){
         var pipeFeatures;
@@ -108,7 +123,6 @@ require([
             success:function(result){
                 var data=eval ("(" + result + ")");
                 pipeFeatures=data.features;
-                //return pipeFeatures;
                 creatLine3D(pipeFeatures);
                 renderer.render(scene,camera);
             },
@@ -120,18 +134,16 @@ require([
 
     init3D();
     getPipeJson();
-    //creatLine();
-    //var pipe=getPipeJson();
-    //CreatLine3D(pipe);
-    //scene.add(line);
-    //renderer.render(scene,camera);
 
     var cameraControls = new THREE.OrbitControls( camera, renderer.domElement );
-    cameraControls.target.set( 12730, 3577, 0 );
+    //var cameraControls = new THREE.OrbitControls( camera);
+    cameraControls.target.set( 12727.6596503, 0 , -3579.7126349500004);
+    //cameraControls.target.set( 0, 0, 0 );
+    //cameraControls.target.x=center.x;
+    //cameraControls.target.y=center.y;
     cameraControls.addEventListener( 'change', render );
 
     function render(){
-       // renderer.clear();
         renderer.render(scene, camera);
     }
 
