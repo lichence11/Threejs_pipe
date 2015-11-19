@@ -43,8 +43,12 @@ require([
         initScene();
         initCamera();
         camera.position.x = 12730;
-        camera.position.y = 10;
-        camera.position.z = 3577;
+        camera.position.y = 30;
+        camera.position.z = -3550;
+/*        camera.position.x = 0;
+        camera.position.y = 50;
+        camera.position.z = 0;*/
+        //camera.lookAt({x:12730,y:0,z:-3579});
         scene.add(camera);
 /*        initLight();
         light.position.set(100, 100, 200);
@@ -53,6 +57,8 @@ require([
         container.appendChild(renderer.domElement);
         var object = new THREE.AxisHelper( 10 );
         object.position.set( 12627.6596503,  0,-3579.7126349500004 );
+        //object.position.set( 0,  0,0);
+        camera.lookAt(object.position);
         scene.add( object );
 
     }
@@ -136,18 +142,28 @@ require([
     getPipeJson();
 
     var cameraControls = new THREE.OrbitControls( camera, renderer.domElement );
-    //var cameraControls = new THREE.OrbitControls( camera);
-    cameraControls.target.set( 12727.6596503, 0 , -3579.7126349500004);
-    //cameraControls.target.set( 0, 0, 0 );
-    //cameraControls.target.x=center.x;
-    //cameraControls.target.y=center.y;
+    //cameraControls.target.set( 0, 0 , 0);
+    cameraControls.target.set( 12730.6596503, 0 , -3579.7126349500004);
     cameraControls.addEventListener( 'change', render );
 
     function render(){
         renderer.render(scene, camera);
     }
-
-
-
+    function initBuliding(){
+        var url="data/car/car.js";
+        var loader=new THREE.JSONLoader();
+        loader.load(url,function(geometry,material){
+            loadBuliding(geometry,material);
+        });
+    }
+    function loadBuliding(geometry,material){
+        material=new THREE.MeshFaceMaterial(material);
+        var mesh=new THREE.Mesh(geometry,material);
+        mesh.position.set(12728.6596503, 0 , -3579.7126349500004);
+        mesh.scale.set(0.02,0.02,0.02);
+        mesh.rotation.x=-90*Math.PI/180;
+        scene.add(mesh);
+    }
+    initBuliding();
 });//esri dojo-end
 

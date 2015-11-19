@@ -15,9 +15,9 @@
 
     </style>
     <script src="jquery-1.11.3.js"></script>
-    <!--<script src="controls/OrbitControls.js"></script>-->
-    <script src="testControl.js"></script>
-    <script>
+    <script src="controls/OrbitControls.js"></script>
+    <!--<script src="testControl.js"></script>-->
+    <script type="text/javascript">
 //        var renderer;
 //        function initThree() {
 //            width = document.getElementById('canvas-frame').clientWidth;
@@ -159,19 +159,73 @@
 //            renderer.render(scene, camera);
 //        }
 
-function threeStart(){
-    var c=new Controls("11");
-    c.publicPan();
-    var d= c.test;
-    var a= c.testPoproty();
-    var i=0;
-    i++;
+var renderer,scene,camera,light,container_width,container_height;
+var cameraControls;
+/**
+ * 初始化3D test
+ */
+function init3D(){
+    var container=document.getElementById('canvas-frame');
+    container_width = container.clientWidth;
+    container_height =container.clientHeight;
+    initScene();
+    initCamera();
+     camera.position.x = 0;
+     camera.position.y = 50;
+     camera.position.z = 0;
+    scene.add(camera);
+    initRenderer();
+    container.appendChild(renderer.domElement);
+    var object = new THREE.AxisHelper( 60 );
+    object.position.set( 0, 0,0);
+//    camera.lookAt(object.position);
+    scene.add( object );
+    cameraControls = new THREE.OrbitControls( camera, renderer.domElement );
+    cameraControls.target.set( 0, 0 , 0);
+    cameraControls.addEventListener( 'change', render );
+    initBuliding();
+}
+
+function initCamera(){
+    camera=new THREE.PerspectiveCamera(45,container_width/container_height,1,10000);
+}
+function initLight(){
+    light=new THREE.PointLight(0xFFFFFF);
+}
+function initRenderer(){
+    renderer=new THREE.WebGLRenderer({antialias: true});//抗锯齿
+    renderer.setSize(container_width,container_height);
+    renderer.setClearColor(0xFFFFFF);
+}
+function initScene(){
+    scene=new THREE.Scene();
+}
+
+
+
+function render(){
+    renderer.render(scene, camera);
+}
+function initBuliding(){
+    var url="data/car/car.js";
+    var loader=new THREE.JSONLoader();
+    loader.load(url,function(geometry,material){
+        loadBuliding(geometry,material);
+    });
+}
+function loadBuliding(geometry,material){
+    material=new THREE.MeshFaceMaterial(material);
+    var mesh=new THREE.Mesh(geometry,material);
+    mesh.position.set(0,0,0);
+    mesh.rotation.x=-90*Math.PI/180;
+    mesh.scale.set(1,1,1);
+    scene.add(mesh);
 }
 
     </script>
 </head>
 
-<body onload="threeStart();">
+<body onload="init3D();">
 <div id="canvas-frame"></div>
 </body>
 </html>
